@@ -24,9 +24,13 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class ModelSearch extends DefaultTableModel {
-    private static final String[] COLLUMNS = {"Nazwa Produktu", "Cena Produktu", "Ilość Dostępna"};
+    public static final String[] COLLUMNS = {"ID","Nazwa Produktu", "Ilość Dostępna", "Cena Produktu"};
     public ModelSearch() {
         super(COLLUMNS,0);
-        
+    }
+    
+    @Override
+    public boolean isCellEditable(int i,  int i1){
+        return false;
     }
 }

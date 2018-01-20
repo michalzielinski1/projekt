@@ -1,6 +1,15 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,15 +38,42 @@ public class ControllerSearch implements ActionListener {
     
     private JTextField searchJTextField;
     private DefaultTableModel model;
+    private JCheckBox isAvailableCB;
 
-    public ControllerSearch(JTextField searchJTextField, DefaultTableModel model) {
+    public ControllerSearch(JTextField searchJTextField, JCheckBox isAvailableCB, DefaultTableModel model) {
         super();
         this.searchJTextField = searchJTextField;
+        this.isAvailableCB = isAvailableCB;
         this.model = model;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String searchString = searchJTextField.getText();
+            boolean onlyAvailable = isAvailableCB.isSelected();
+            ResultSet rs = Database.getInstance().searchQuery(searchString, onlyAvailable);      
+            ResultSetMetaData metaData = rs.getMetaData();
+            
+            // names of columns
+            Vector<String> columnNames = new Vector<String>(Arrays.asList(ModelSearch.COLLUMNS));
+            
+            // data of the table
+            Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+            while (rs.next()) {
+                int columnCount = metaData.getColumnCount();
+                Vector<Object> vector = new Vector<Object>();
+                for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+                    vector.add(rs.getObject(columnIndex));
+                }
+                data.add(vector);
+            }
+            
+            model.setDataVector(data, columnNames);
+            
+    
+        } catch (Exception ex) {
+            Logger.getLogger(ControllerSearch.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }   
 }

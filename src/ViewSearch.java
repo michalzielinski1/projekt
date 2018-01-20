@@ -31,7 +31,7 @@ public class ViewSearch extends javax.swing.JFrame {
         jTableSearch.setModel(model);
         
         //Create controller
-        ControllerSearch controller = new ControllerSearch(jTextFieldSearch, model);
+        ControllerSearch controller = new ControllerSearch(jTextFieldSearch, jCheckBoxIsAvailable, model);
         jButtonSearch.addActionListener(controller);
         
         this.setVisible(true);
