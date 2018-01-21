@@ -56,6 +56,8 @@ public class ControllerSearch implements ActionListener {
             boolean onlyAvailable = isAvailableCB.isSelected();
             ResultSet rs = Database.getInstance().searchQuery(searchString, onlyAvailable);      
             ResultSetMetaData metaData = rs.getMetaData();
+            int results = 0;
+
             
             // names of columns
             Vector<String> columnNames = new Vector<String>(Arrays.asList(ModelSearch.COLLUMNS));
@@ -68,7 +70,14 @@ public class ControllerSearch implements ActionListener {
                 for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
                     vector.add(rs.getObject(columnIndex));
                 }
+                results += 1;
                 data.add(vector);
+            }
+            
+            if (results == 0) {
+                view.showNoResultsLabel();
+            } else {
+                view.hideNoResultsLabel();
             }
             
             model.setDataVector(data, columnNames);

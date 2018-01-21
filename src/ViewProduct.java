@@ -36,7 +36,7 @@ public class ViewProduct extends javax.swing.JFrame {
     public ViewProduct(String productID) {
         initComponents();
         ModelProduct modelP = new ModelProduct();
-        ControllerProduct contrP = new ControllerProduct(productID, jFormattedTextFieldName, jFormattedTextFieldQuantity, jFormattedTextFieldPrice, modelP);
+        ControllerProduct contrP = new ControllerProduct(productID, jFormattedTextFieldName, jFormattedTextFieldQuantity, jFormattedTextFieldPrice, modelP, this);
         jFormattedTextFieldName.addFocusListener(contrP);
         jFormattedTextFieldPrice.addFocusListener(contrP);
         jFormattedTextFieldQuantity.addFocusListener(contrP);

@@ -74,6 +74,14 @@ public class ViewSearch extends javax.swing.JFrame {
     public void setCellRenderers() {
         jTableSearch.getColumnModel().getColumn(3).setCellRenderer(new DecimalFormatRenderer());
     }
+
+    void showNoResultsLabel() {
+        jLabelEmpty.setText("ŻADEN PRODUKT NIE SPEŁNIA KRYTERIÓW WYSZUKIWANIA");
+    }
+
+    void hideNoResultsLabel() {
+        jLabelEmpty.setText("");
+    }
     
     static class DecimalFormatRenderer extends DefaultTableCellRenderer {
       private static final DecimalFormat formatter = new DecimalFormat("###,###,###,###,##0.00" );
@@ -110,6 +118,7 @@ public class ViewSearch extends javax.swing.JFrame {
         jButtonEditProduct = new javax.swing.JButton();
         jButtonDeleteProduct = new javax.swing.JButton();
         jButtonGenerateReport = new javax.swing.JButton();
+        jLabelEmpty = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,15 +147,20 @@ public class ViewSearch extends javax.swing.JFrame {
 
         jButtonGenerateReport.setText("Generuj Raport");
 
+        jLabelEmpty.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabelEmpty.setForeground(new java.awt.Color(150, 0, 0));
+        jLabelEmpty.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
-                    .addComponent(jTextFieldSearch))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
+                    .addComponent(jTextFieldSearch, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelEmpty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jCheckBoxIsAvailable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -161,13 +175,17 @@ public class ViewSearch extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBoxIsAvailable))
-                    .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                        .addComponent(jCheckBoxIsAvailable)
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelEmpty)
+                        .addGap(5, 5, 5)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -192,6 +210,7 @@ public class ViewSearch extends javax.swing.JFrame {
     private javax.swing.JButton jButtonGenerateReport;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JCheckBox jCheckBoxIsAvailable;
+    private javax.swing.JLabel jLabelEmpty;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableSearch;
     private javax.swing.JTextField jTextFieldSearch;

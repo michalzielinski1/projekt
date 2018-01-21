@@ -38,12 +38,14 @@ class ControllerProduct extends Observer implements FocusListener{
     private javax.swing.JFormattedTextField jFormattedTextFieldQuantity;
     private String productID;
     private ModelProduct modelProduct;
+    private ViewProduct view;
     
-    public ControllerProduct(String productID, JFormattedTextField jFormattedTextFieldName, JFormattedTextField jFormattedTextFieldQuantity, JFormattedTextField jFormattedTextFieldPrice, ModelProduct modelProduct) {
+    public ControllerProduct(String productID, JFormattedTextField jFormattedTextFieldName, JFormattedTextField jFormattedTextFieldQuantity, JFormattedTextField jFormattedTextFieldPrice, ModelProduct modelProduct, ViewProduct view) {
         this.productID = productID;
         this.jFormattedTextFieldName = jFormattedTextFieldName;
         this.jFormattedTextFieldQuantity = jFormattedTextFieldQuantity;
         this.jFormattedTextFieldPrice = jFormattedTextFieldPrice;
+        this.view = view;
         this.modelProduct = modelProduct;
         this.modelProduct.setProductID(this.productID);
         this.modelProduct.add(this);
@@ -68,9 +70,15 @@ class ControllerProduct extends Observer implements FocusListener{
         if (quantityString.length() == 0) {
             quantityString = "0";
         }
-        BigDecimal price = new BigDecimal(priceString);
-        BigDecimal Quantity =  new BigDecimal(quantityString);
-        modelProduct.setValues(name, price, Quantity);
+        try {
+            BigDecimal price = new BigDecimal(priceString);
+            BigDecimal Quantity =  new BigDecimal(quantityString);
+            modelProduct.setValues(name, price, Quantity);
+        } catch (java.lang.NumberFormatException ex)
+        {
+            ;
+        }
+        
     }
     
     public void updateView() {
