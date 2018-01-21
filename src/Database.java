@@ -58,6 +58,20 @@ public class Database {
         return rs; 
     }
     
+    public ResultSet attributesQuery(String ID) throws Exception{
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ATTRIBUTES WHERE PRODUCT_ID = ? ORDER BY NAME ASC");
+        stmt.setString(1, ID);
+        ResultSet rs = stmt.executeQuery();
+        return rs; 
+    }
+    
+    public ResultSet productQuery(String ID) throws Exception{
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM PRODUCTS WHERE ID = ? ORDER BY NAME ASC");
+        stmt.setString(1, ID);
+        ResultSet rs = stmt.executeQuery();
+        return rs; 
+    }
+    
     public void deleteRowByID(String ID) throws Exception{
         PreparedStatement stmt = conn.prepareStatement("SELECT ID FROM PRODUCTS WHERE ID = ?",ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         stmt.setString(1, ID);
