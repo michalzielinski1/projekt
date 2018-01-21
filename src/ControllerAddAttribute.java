@@ -1,4 +1,9 @@
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -22,23 +27,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Michał Zieliński
  */
-
-   public class ModelProductAttributes extends DefaultTableModel {
-    public static final String[] COLLUMNS = {"Nazwa Cechy","Wartość Cechy"};
-    public ModelProductAttributes() {
-        super(COLLUMNS,0);
-    }
-       
-    @Override
-    public boolean isCellEditable(int i,  int i1){
-        return true;
-    }
+public class ControllerAddAttribute implements ActionListener {
     
+    private DefaultTableModel model;
+    private ViewProduct view;
+
+    public ControllerAddAttribute(DefaultTableModel model, ViewProduct view) {
+        super();
+        this.model = model;
+    }
+
     @Override
-    public Class getColumnClass(int col) {
-                switch (col) {
-            default:
-                return String.class;
-        }
-    } 
+    public void actionPerformed(ActionEvent e) {
+        model.addRow(new String[]{"",""});
+    }   
 }
+

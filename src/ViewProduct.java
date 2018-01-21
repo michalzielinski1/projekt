@@ -41,8 +41,15 @@ public class ViewProduct extends javax.swing.JFrame {
         jFormattedTextFieldPrice.addFocusListener(contrP);
         jFormattedTextFieldQuantity.addFocusListener(contrP);
         
+        
+        
         ModelProductAttributes modelA = new ModelProductAttributes();
         jTableAttributes.setModel(modelA);
+        ControllerAddAttribute contrAA = new ControllerAddAttribute(modelA, this);
+        jButtonAddAttribute.addActionListener(contrAA);
+        
+        ControllerDeleteAttribute contrDA = new ControllerDeleteAttribute(modelA, this, jTableAttributes);
+        jButtonRemoveAttribute.addActionListener(contrDA);
         
         ControllerAttributes contrA = new ControllerAttributes(jTableAttributes, modelA, this, productID);
         

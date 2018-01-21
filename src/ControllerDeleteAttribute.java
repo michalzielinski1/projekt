@@ -1,5 +1,7 @@
 
-import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JTable;
 
 /*
  * Copyright (C) 2018 Michał Zieliński
@@ -22,23 +24,24 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Michał Zieliński
  */
+public class ControllerDeleteAttribute implements ActionListener {
+    ModelProductAttributes model;
+    ViewProduct view;
+    JTable jTableAttributes;
 
-   public class ModelProductAttributes extends DefaultTableModel {
-    public static final String[] COLLUMNS = {"Nazwa Cechy","Wartość Cechy"};
-    public ModelProductAttributes() {
-        super(COLLUMNS,0);
+    public ControllerDeleteAttribute(ModelProductAttributes model, ViewProduct view, JTable jTableAttributes) {
+        this.model = model;
+        this.view = view;
+        this.jTableAttributes = jTableAttributes;
     }
-       
+
     @Override
-    public boolean isCellEditable(int i,  int i1){
-        return true;
+    public void actionPerformed(ActionEvent e) {
+        int selectedIndex = jTableAttributes.getSelectedRow();
+        if (selectedIndex >= 0 && selectedIndex < model.getRowCount()) model.removeRow(jTableAttributes.getSelectedRow());
     }
     
-    @Override
-    public Class getColumnClass(int col) {
-                switch (col) {
-            default:
-                return String.class;
-        }
-    } 
+    
+
+    
 }
