@@ -38,13 +38,15 @@ public class ControllerSearch implements ActionListener {
     
     private JTextField searchJTextField;
     private DefaultTableModel model;
+    private ViewSearch view;
     private JCheckBox isAvailableCB;
 
-    public ControllerSearch(JTextField searchJTextField, JCheckBox isAvailableCB, DefaultTableModel model) {
+    public ControllerSearch(JTextField searchJTextField, JCheckBox isAvailableCB, DefaultTableModel model, ViewSearch view) {
         super();
         this.searchJTextField = searchJTextField;
         this.isAvailableCB = isAvailableCB;
         this.model = model;
+        this.view = view;
     }
 
     @Override
@@ -70,6 +72,8 @@ public class ControllerSearch implements ActionListener {
             }
             
             model.setDataVector(data, columnNames);
+            view.setColumnWidths();
+            view.setCellRenderers();
             
     
         } catch (Exception ex) {

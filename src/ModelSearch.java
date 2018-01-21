@@ -33,4 +33,23 @@ public class ModelSearch extends DefaultTableModel {
     public boolean isCellEditable(int i,  int i1){
         return false;
     }
+    
+    @Override
+    public Class getColumnClass(int col) {
+                switch (col) {
+            case 0:
+                return Integer.class;
+            case 1:
+                return String.class;
+            case 2:
+                return Integer.class;
+            case 3:
+                return Double.class;
+            default:
+                return String.class;
+        }
+    }
+    
+
+    
 }

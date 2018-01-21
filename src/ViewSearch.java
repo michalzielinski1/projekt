@@ -1,3 +1,11 @@
+
+import java.awt.Component;
+import java.text.DecimalFormat;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
+
 /*
  * Copyright (C) 2018 Michał Zieliński
  *
@@ -29,14 +37,57 @@ public class ViewSearch extends javax.swing.JFrame {
         //Create table model
         ModelSearch model = new ModelSearch();
         jTableSearch.setModel(model);
+        //Create search controllerSearch
+        ControllerSearch controllerSearch = new ControllerSearch(jTextFieldSearch, jCheckBoxIsAvailable, model, this);
+        ControllerDelete controllerDelete = new ControllerDelete(jTableSearch, model, this);
+        jButtonSearch.addActionListener(controllerSearch);
+        jButtonDeleteProduct.addActionListener(controllerDelete);
         
-        //Create controller
-        ControllerSearch controller = new ControllerSearch(jTextFieldSearch, jCheckBoxIsAvailable, model);
-        jButtonSearch.addActionListener(controller);
-        
+        //Visual adjustments
+        jTableSearch.setAutoCreateRowSorter(true); 
+        jTableSearch.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        setColumnWidths();
+        setCellRenderers();
         this.setVisible(true);
     }
-
+    
+    public boolean showYesNoConfirmationDialog(String s) {
+        int dialogResult = JOptionPane.showConfirmDialog(this, s, "Proszę potwierdzić operację", JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public void setColumnWidths() {
+        jTableSearch.getColumnModel().getColumn(0).setMaxWidth(100);
+        jTableSearch.getColumnModel().getColumn(1).setPreferredWidth(400);
+        jTableSearch.getColumnModel().getColumn(2).setMaxWidth(100);
+        jTableSearch.getColumnModel().getColumn(3).setPreferredWidth(200);
+    }
+    
+    public void setCellRenderers() {
+        jTableSearch.getColumnModel().getColumn(3).setCellRenderer(new DecimalFormatRenderer());
+    }
+    
+    static class DecimalFormatRenderer extends DefaultTableCellRenderer {
+      private static final DecimalFormat formatter = new DecimalFormat("###,###,###,###,##0.00" );
+ 
+      public Component getTableCellRendererComponent(
+         JTable table, Object value, boolean isSelected,
+         boolean hasFocus, int row, int column) {
+ 
+         // First format the cell value as required
+ 
+         value = formatter.format((Number)value);
+ 
+            // And pass it on to parent class
+ 
+         return super.getTableCellRendererComponent(
+            table, value, isSelected, hasFocus, row, column );
+      }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -141,4 +192,6 @@ public class ViewSearch extends javax.swing.JFrame {
     private javax.swing.JTable jTableSearch;
     private javax.swing.JTextField jTextFieldSearch;
     // End of variables declaration//GEN-END:variables
+
+
 }

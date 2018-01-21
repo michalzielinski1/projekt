@@ -51,11 +51,21 @@ public class Database {
     }
     
     public ResultSet searchQuery(String searchString, boolean onlyAvailable) throws Exception{
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM PRODUCTS WHERE LOWER(NAME) LIKE LOWER(?) ORDER BY ID ASC");
-        if (onlyAvailable) stmt = conn.prepareStatement("SELECT * FROM PRODUCTS WHERE LOWER(NAME) LIKE LOWER(?) AND QUANTITY > 0 ORDER BY ID ASC");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM PRODUCTS WHERE LOWER(NAME) LIKE LOWER(?) ORDER BY NAME ASC");
+        if (onlyAvailable) stmt = conn.prepareStatement("SELECT * FROM PRODUCTS WHERE LOWER(NAME) LIKE LOWER(?) AND QUANTITY > 0 ORDER BY NAME ASC");
         stmt.setString(1, "%" + searchString + "%");
         ResultSet rs = stmt.executeQuery();
         return rs; 
+    }
+    
+    public void deleteRowByID(String ID) throws Exception{
+        PreparedStatement stmt = conn.prepareStatement("SELECT ID FROM PRODUCTS WHERE ID = ?",ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        stmt.setString(1, ID);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {            
+            rs.deleteRow();
+        } 
+        
     }
     
     
