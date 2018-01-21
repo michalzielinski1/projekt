@@ -53,6 +53,9 @@ public class ViewProduct extends javax.swing.JFrame {
         
         ControllerAttributes contrA = new ControllerAttributes(jTableAttributes, modelA, this, productID);
         
+        ControllerCommit contrC = new ControllerCommit(modelP, modelA, this);
+        jButtonCommit.addActionListener(contrC);
+        
         this.setVisible(true);
     }
 
@@ -64,6 +67,10 @@ public class ViewProduct extends javax.swing.JFrame {
         } else {
             return false;
         }
+    }
+    
+    public void showErrorDialog(String s) {
+        JOptionPane.showMessageDialog(this, s, "Uwaga", JOptionPane.ERROR_MESSAGE);
     }
     
     public void setColumnWidths() {

@@ -41,9 +41,11 @@ public class ViewSearch extends javax.swing.JFrame {
         ControllerSearch controllerSearch = new ControllerSearch(jTextFieldSearch, jCheckBoxIsAvailable, model, this);
         ControllerDelete controllerDelete = new ControllerDelete(jTableSearch, model, this);
         ControllerEdit controllerEdit = new ControllerEdit(jTableSearch, model, this);
+        ControllerAdd controllerAdd = new ControllerAdd(jTableSearch, model, this);
         jButtonSearch.addActionListener(controllerSearch);
         jButtonDeleteProduct.addActionListener(controllerDelete);
         jButtonEditProduct.addActionListener(controllerEdit);
+        jButtonAddProduct.addActionListener(controllerAdd);
         
         //Visual adjustments
         jTableSearch.setAutoCreateRowSorter(true); 

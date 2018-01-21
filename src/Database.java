@@ -20,6 +20,7 @@
  * @author Michał Zieliński
  */
 
+import java.math.BigDecimal;
 import java.sql.*;
 
 public class Database {
@@ -58,6 +59,38 @@ public class Database {
         return rs; 
     }
     
+    public String addProduct(String name, BigDecimal quantity, BigDecimal Price) throws Exception{
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO PRODUCTS (NAME, QUANTITY, PRICE) VALUES (?,?,?)", new String[]{"ID"});
+        stmt.setString(1, name);
+        stmt.setBigDecimal(2, quantity);
+        stmt.setBigDecimal(3, Price);
+        stmt.executeUpdate();
+        ResultSet rs = stmt.getGeneratedKeys();
+        
+        BigDecimal id = new BigDecimal("0");
+        if (rs.next()) {
+            id = rs.getBigDecimal(1);
+        }
+        return id.toString(); 
+    }
+    
+    public void updateProduct(String ID, String name, BigDecimal quantity, BigDecimal Price) throws Exception{
+        PreparedStatement stmt = conn.prepareStatement("UPDATE PRODUCTS SET NAME = ?, QUANTITY = ?, PRICE = ? WHERE ID = ?");
+        stmt.setString(1, name);
+        stmt.setBigDecimal(2, quantity);
+        stmt.setBigDecimal(3, Price);
+        stmt.setString(4, ID);
+        stmt.executeUpdate(); 
+    }
+    
+    public void addAttribute(String productID, String name, String value) throws Exception{
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO ATTRIBUTES (PRODUCT_ID, NAME, VALUE) VALUES (?,?,?)");
+        stmt.setString(1, productID);
+        stmt.setString(2, name);
+        stmt.setString(3, value);
+        stmt.executeUpdate();
+    }
+    
     public ResultSet attributesQuery(String ID) throws Exception{
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ATTRIBUTES WHERE PRODUCT_ID = ? ORDER BY NAME ASC");
         stmt.setString(1, ID);
@@ -70,6 +103,15 @@ public class Database {
         stmt.setString(1, ID);
         ResultSet rs = stmt.executeQuery();
         return rs; 
+    }
+    
+    public void deleteAttrByID(String ID) throws Exception {
+        PreparedStatement stmt = conn.prepareStatement("SELECT PRODUCT_ID FROM ATTRIBUTES WHERE PRODUCT_ID = ?",ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        stmt.setString(1, ID);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {            
+            rs.deleteRow();
+        } 
     }
     
     public void deleteRowByID(String ID) throws Exception{

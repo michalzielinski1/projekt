@@ -1,17 +1,9 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -35,13 +27,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Michał Zieliński
  */
-public class ControllerDelete implements ActionListener {
+public class ControllerAdd implements ActionListener {
     
     private DefaultTableModel model;
     private ViewSearch view;
     private JTable jTableSearch;
 
-    public ControllerDelete(JTable jTableSearch, DefaultTableModel model, ViewSearch view) {
+    public ControllerAdd(JTable jTableSearch, DefaultTableModel model, ViewSearch view) {
         super();
         this.model = model;
         this.view = view;
@@ -50,18 +42,10 @@ public class ControllerDelete implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(!jTableSearch.getSelectionModel().isSelectionEmpty() && view.showYesNoConfirmationDialog("Czy napeweno chcesz usunąc ten produkt?") )
-        {
-            try {
-                int row = jTableSearch.getSelectedRow();
-                int col = 0;
-                String id = jTableSearch.getValueAt(row, col).toString();
-                Database.getInstance().deleteAttrByID(id);
-                Database.getInstance().deleteRowByID(id);  
-                model.removeRow(row);
-            } catch (Exception ex) {
-                Logger.getLogger(ControllerSearch.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            ViewProduct p = new ViewProduct(null);
+        } catch (Exception ex) {
+            Logger.getLogger(ControllerSearch.class.getName()).log(Level.SEVERE, null, ex);
         }
     }   
 }
