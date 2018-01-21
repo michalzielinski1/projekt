@@ -1,9 +1,12 @@
 
 import java.awt.Component;
+import java.io.File;
 import java.text.DecimalFormat;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /*
@@ -42,10 +45,12 @@ public class ViewSearch extends javax.swing.JFrame {
         ControllerDelete controllerDelete = new ControllerDelete(jTableSearch, model, this);
         ControllerEdit controllerEdit = new ControllerEdit(jTableSearch, model, this);
         ControllerAdd controllerAdd = new ControllerAdd(jTableSearch, model, this);
+        ControllerGenerateReport controllerGenerateReport = new ControllerGenerateReport(this, model);
         jButtonSearch.addActionListener(controllerSearch);
         jButtonDeleteProduct.addActionListener(controllerDelete);
         jButtonEditProduct.addActionListener(controllerEdit);
         jButtonAddProduct.addActionListener(controllerAdd);
+        jButtonGenerateReport.addActionListener(controllerGenerateReport);
         
         //Visual adjustments
         jTableSearch.setAutoCreateRowSorter(true); 
@@ -61,6 +66,22 @@ public class ViewSearch extends javax.swing.JFrame {
             return true;
         } else {
             return false;
+        }
+    }
+    
+    public File showFileDialog() {
+        jFileChooser1.setDialogType(JFileChooser.SAVE_DIALOG);
+        jFileChooser1.setSelectedFile(new File("raport"));
+        jFileChooser1.setFileFilter(new FileNameExtensionFilter("PDF file","PDF"));
+        if(jFileChooser1.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
+        {
+            String filename = jFileChooser1.getSelectedFile().toString();
+            if (!filename.endsWith(".pdf"))  filename += ".pdf";
+            return new File(filename);                 
+        }
+        else 
+        { 
+            return null;
         }
     }
     
@@ -109,6 +130,7 @@ public class ViewSearch extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser1 = new javax.swing.JFileChooser();
         jTextFieldSearch = new javax.swing.JTextField();
         jButtonSearch = new javax.swing.JButton();
         jCheckBoxIsAvailable = new javax.swing.JCheckBox();
@@ -119,6 +141,9 @@ public class ViewSearch extends javax.swing.JFrame {
         jButtonDeleteProduct = new javax.swing.JButton();
         jButtonGenerateReport = new javax.swing.JButton();
         jLabelEmpty = new javax.swing.JLabel();
+
+        jFileChooser1.setApproveButtonText("");
+        jFileChooser1.setDialogTitle("Wybierz lokalizacje pliku");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -210,6 +235,7 @@ public class ViewSearch extends javax.swing.JFrame {
     private javax.swing.JButton jButtonGenerateReport;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JCheckBox jCheckBoxIsAvailable;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabelEmpty;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableSearch;

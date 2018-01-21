@@ -1,10 +1,6 @@
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.NumberFormatter;
 
 /*
  * Copyright (C) 2018 Michał Zieliński
@@ -35,6 +31,7 @@ public class ViewProduct extends javax.swing.JFrame {
    
     public ViewProduct(String productID) {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ModelProduct modelP = new ModelProduct();
         ControllerProduct contrP = new ControllerProduct(productID, jFormattedTextFieldName, jFormattedTextFieldQuantity, jFormattedTextFieldPrice, modelP, this);
         jFormattedTextFieldName.addFocusListener(contrP);
