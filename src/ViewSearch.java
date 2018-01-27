@@ -104,6 +104,7 @@ public class ViewSearch extends javax.swing.JFrame {
         jLabelEmpty.setText("");
     }
     
+    
     static class DecimalFormatRenderer extends DefaultTableCellRenderer {
       private static final DecimalFormat formatter = new DecimalFormat("###,###,###,###,##0.00" );
  
@@ -120,6 +121,14 @@ public class ViewSearch extends javax.swing.JFrame {
          return super.getTableCellRendererComponent(
             table, value, isSelected, hasFocus, row, column );
       }
+    }
+    
+    public void setDisabled() {
+        this.setEnabled(false);
+    }
+    
+    public void setEnabled() {
+        this.setEnabled(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.

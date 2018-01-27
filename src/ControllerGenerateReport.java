@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -40,7 +41,7 @@ import java.util.logging.Logger;
  *
  * @author Michał Zieliński
  */
-public class ControllerGenerateReport implements ActionListener {
+public class ControllerGenerateReport implements ActionListener{
 
     ViewSearch view;
     ModelSearch model;
@@ -143,6 +144,9 @@ public class ControllerGenerateReport implements ActionListener {
                 data.add(vector);
                 
             }
+            Statement s = rs.getStatement();
+            rs.close();
+            s.close();
             return data;   
         } catch (Exception ex) {
             Logger.getLogger(ControllerSearch.class.getName()).log(Level.SEVERE, null, ex);

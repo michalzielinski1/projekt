@@ -74,6 +74,8 @@ public class ViewProduct extends javax.swing.JFrame {
         jTableAttributes.getColumnModel().getColumn(0).setPreferredWidth(200);
         jTableAttributes.getColumnModel().getColumn(1).setPreferredWidth(50);
     }
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

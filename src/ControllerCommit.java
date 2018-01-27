@@ -53,7 +53,7 @@ public class ControllerCommit implements ActionListener {
                         
                         String name = (String)modelA.getValueAt(i, 0);
                         String value = (String)modelA.getValueAt(i, 1);
-                        if (!name.equals("") || !value.equals("")) {
+                        if ((name != null && !name.equals("")) || (value !=null && !value.equals(""))) {
                             Database.getInstance().addAttribute(ID, name, value);
                         }
                     }
@@ -69,7 +69,8 @@ public class ControllerCommit implements ActionListener {
                         String name = (String)modelA.getValueAt(i, 0);
                         String value = (String)modelA.getValueAt(i, 1);
                         System.out.println("NAME: " +  name + " VALUE: " + value);
-                        if (!name.equals("") || !value.equals("")) {
+                        if(name != null || value !=null)
+                        if ((name != null && !name.equals("")) || (value !=null && !value.equals(""))) {
                             Database.getInstance().addAttribute(ID, name, value);
                             System.out.println(ID + ' ' +  name + ' ' + value);
                         }

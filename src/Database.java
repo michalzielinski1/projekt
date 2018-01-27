@@ -30,8 +30,8 @@ public class Database {
        
     private Database() throws Exception{
         Class.forName("oracle.jdbc.driver.OracleDriver");
-        String serverName = "localhost";
-        String portNumber = "1521";
+        String serverName = "192.168.0.110";
+        String portNumber = "49161";
         String sid = "xe";
         String url = "jdbc:oracle:thin:@" + serverName + ":" + portNumber + ":" + sid;
         String username = "IOPROJECT";
